@@ -1,16 +1,17 @@
 import streamlit as st
 
-st.title("Conexión con base de datos MySQL")
+st.title("Diagnóstico de conexión")
 
-try:
-    st.write("Secciones:", list(st.secrets.keys()))
+st.write("¿Secrets cargados?:", bool(st.secrets))
+
+st.write("¿Existe mysql?:", "mysql" in st.secrets)
+
+if "mysql" in st.secrets:
+    st.success("La sección mysql fue reconocida")
 
     st.write(
-        "Variables MySQL:",
+        "Claves encontradas:",
         list(st.secrets["mysql"].keys())
     )
-
-    st.success("Secrets reconocidos correctamente")
-
-except KeyError as e:
-    st.error(f"No se encontró la clave: {e}")
+else:
+    st.error("No se encuentra la sección mysql")
